@@ -1,0 +1,14 @@
+#include <Servo.h>    //Se agrega la libreria servo para la señal de pwm de 50HZ
+Servo ESC;            //Crea un objeto servo para controlar el ESC
+int pot;              //Variable para la lectura analógica
+
+void setup() {
+  // Configura el ESC en el pin 9
+  ESC.attach(9,1000,2000);            // (pin, min pulse width, max pulse width) en microsegundos
+}
+
+void loop() {
+  pot = analogRead(A0);               //Lee el la señal analógica del Pin A0 (valor entre 0 y 1023)
+  pot = map(pot, 0, 1023, 0, 180);    //Escala el valor para usarlo con la libreria servo (valor entre 0 y 180)
+  ESC.write(pot);                     //Manda la señal al ESC
+}
